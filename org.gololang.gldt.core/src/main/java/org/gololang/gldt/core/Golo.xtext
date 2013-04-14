@@ -1,0 +1,302 @@
+grammar org.gololang.gldt.core.Golo hidden(WS)
+
+generate golo "http://www.gololang.org/gldt/core/Golo"
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore 
+
+CompilationUnit:
+	BlankLines
+	module=ModuleDeclaration
+	BlankLines
+	(imports+=ImportDeclaration BlankLines)*
+	declaration=TopLevelDeclaration BlankLines;
+
+terminal WS :
+	' ' |
+	'\t' |
+	'\r'/*|
+	'\f'*/;
+
+terminal NEWLINE:
+	'\n' | '\r' | '\r\n';
+
+terminal MODULE: "module";
+
+terminal IMPORT: "import";
+
+terminal FUNCTION: "function";
+
+terminal LOCAL: "local";
+
+terminal RETURN: "return";
+
+terminal IF: "if";
+
+terminal ELSE: "else";
+
+terminal WHILE: "while";
+
+terminal FOR: "for";
+
+terminal FOREACH: "foreach";
+
+terminal IN: "in";
+
+terminal THROW: "throw";
+
+terminal TRY: "try";
+
+terminal CATCH: "catch";
+
+terminal FINALLY: "finally";
+
+terminal CASE: "case";
+
+terminal WHEN: "when";
+
+terminal MATCH: "match";
+
+terminal THEN: "then";
+
+terminal OTHERWISE: "otherwise";
+
+terminal AUGMENT: ("augment" | "pimp");
+
+terminal BREAK: "break";
+
+terminal CONTINUE: "continue";
+
+terminal ASSOCIATIVE_OPERATOR: ("*" | "/" | "%" |
+                           "<" | "<=" | "==" | "!=" | ">" | ">=" | 
+                           "is" | "isnt" |
+                           "oftype" ); 
+
+terminal COMMUTATIVE_OPERATOR: ("+" | "-" |
+                           "and" | "or");
+
+terminal UNARY_OPERATOR: "not";
+
+terminal VAR: "var";
+
+terminal LET: "let";
+
+terminal NUMBER: "-"? "0".."9" ("0".."9")*;
+
+terminal LONG_NUMBER: NUMBER "_L";
+
+terminal FLOATING_NUMBER: ("-")? ("0".."9")+ ("." ("0".."9")+)? ("e" ("0".."9")+)?;
+
+terminal FLOAT: FLOATING_NUMBER "_F";
+
+terminal STRING: "\"" (
+    !("\"" | "\\" | "\n" | "\r")
+    |
+    ("\\" ("n" | "t" | "b" | "r" | "f" | "\\" | "'" | "\"") )
+  )* "\"";
+
+terminal CHAR: "'" (!("\n" | "\r" | "\"")) "'";
+
+terminal NULL: "null";
+
+terminal TRUE: "true";
+
+terminal FALSE: "false";
+
+CLASSREF: IDENTIFIER ("." IDENTIFIER)* (".class" | ".module");
+
+FUNREF: "^" (IDENTIFIER ("." IDENTIFIER)* "::")? IDENTIFIER;
+
+terminal fragment LETTER: "A".."Z" | "a".."z" | "_" | "$";
+
+terminal fragment ID_REST: LETTER | "0".."9";
+
+terminal IDENTIFIER: LETTER (ID_REST)*;
+
+
+terminal COMMENT: "#" (!("\n" | "\r" | "\r\n"))* ("\n" | "\r" | "\r\n");
+
+BlankLine:
+	NEWLINE | COMMENT;
+
+BlankLines:
+	BlankLine*;
+
+QualifiedName:
+	root=IDENTIFIER ("." next+=IDENTIFIER)*;
+
+Arguments:
+	root=IDENTIFIER ("," BlankLine? next+= IDENTIFIER)*;
+
+StringLiteral:
+	value=STRING;
+
+CharLiteral:
+	value=CHAR;
+
+LongLiteral:
+	value=LONG_NUMBER;
+	
+IntegerLiteral:
+	value=NUMBER;
+
+ClassLiteral:
+	value=CLASSREF;
+
+DoubleLiteral:
+	value=FLOATING_NUMBER;
+
+FloatLiteral:
+	value=FLOAT;
+
+FunctionRef:
+	value=FUNREF;
+
+ModuleDeclaration:
+	MODULE name=QualifiedName;
+
+ImportDeclaration:
+	IMPORT name=QualifiedName;
+
+TopLevelDeclaration:
+	AugmentDeclaration |
+	((isLocal=LOCAL)? functionDecl=FunctionDeclaration);
+
+AugmentDeclaration:
+	AUGMENT target=QualifiedName "{" BlankLines
+	(func+=FunctionDeclaration BlankLines)* "}";
+
+FunctionDeclaration:
+	FUNCTION name=IDENTIFIER "=" function=FunctionStmt;
+
+Statement:
+	BlankLine |
+	Assignment |
+	ExpressionStatement |
+	ReturnStmt |
+	LetOrVar |
+	ConditionalBranching |
+	WhileLoop |
+	ForLoop |
+	ForEachLoop |
+	ThrowStmt |
+	TryCatchFinally |
+	CaseStmt |
+	ContinueStmt |
+	BreakStmt;
+
+ContinueStmt:
+	CONTINUE;
+
+BreakStmt:
+	BREAK;
+
+ThrowStmt:
+	THROW BlankLine? ExpressionStatement;
+
+WhileLoop:
+	WHILE ExpressionStatement block=Block;
+
+ForLoop:
+	FOR "(" BlankLine? letorvar=LetOrVar ","
+	        BlankLine? expression=ExpressionStatement ","
+	        BlankLine? statement=Statement ")"
+	block=Block;
+
+ForEachLoop:
+	FOREACH "(" elemenId=IDENTIFIER IN expression=ExpressionStatement ")" block=Block; 
+
+TryCatchFinally:
+	TRY tryBlock=Block
+	((FINALLY finallyBlock=Block) |
+     (CATCH "(" exceptionId=IDENTIFIER ")" catchBlock=Block (FINALLY finallyBlock=Block)?));
+	 
+ExpressionStatement:
+	CommutativeExpression;
+
+TerminalExpression:
+	functionInvocation=FunctionInvocation |
+	reference=Reference |
+	match=MatchStmt |
+	literal=Literal |
+	function=FunctionStmt;
+	
+UnaryExpression:
+	token=UNARY_OPERATOR commutativeExpression=CommutativeExpression;
+
+CommutativeExpression:
+	expressions+=AssociativeExpression
+	(BlankLine? token+=COMMUTATIVE_OPERATOR BlankLine? expressions+=AssociativeExpression)*;
+
+AssociativeExpression:
+	(
+	 ("(" BlankLine? commutativeExpression=CommutativeExpression BlankLine? ")") |
+	 terminalExpression=TerminalExpression |
+	 unaryExpression=UnaryExpression)
+	BlankLine?
+	((token+=ASSOCIATIVE_OPERATOR BlankLine? associativeExpression+=AssociativeExpression) |
+	 (BlankLine? token+=":" BlankLine? methodInvocation+=MethodInvocation)
+	)*
+	BlankLine?;
+
+MethodInvocation:
+	token=IDENTIFIER "(" BlankLine? Expressions? ")";
+
+Block:
+	{Block}
+	"{" statements+=Statement* "}";
+
+FunctionStmt:
+	("|" arguments=Arguments (varargsToken="...")? "|")?
+	(block=Block |
+	 ("->" BlankLine? expressionStatement=ExpressionStatement));
+	 
+Literal:
+	value=ClassLiteral |
+	value=StringLiteral |
+	value=CharLiteral |
+	value=FloatLiteral |
+	value=DoubleLiteral |
+	value=LongLiteral |
+	value=IntegerLiteral |
+	isNull?=NULL |
+	isTrue?=TRUE |
+	isFalse?=FALSE |
+	value=FunctionRef;
+
+Reference:
+	id=IDENTIFIER;
+
+LetOrVar:
+	(LET idToken=IDENTIFIER "=" BlankLine? ExpressionStatement) |
+	(VAR idToken=IDENTIFIER "=" BlankLine? ExpressionStatement);
+
+Assignment:
+	idToken=IDENTIFIER "=" BlankLine? expressionStatement=ExpressionStatement;
+
+ReturnStmt:
+	{ReturnStmt}
+	RETURN (BlankLine? expressionStatement=ExpressionStatement)?;
+
+Expressions:
+	expressions+=ExpressionStatement ("," BlankLine? expressions+=ExpressionStatement)*;
+	
+FunctionInvocation:
+	name=QualifiedName =>"(" BlankLine? Expressions? ")";
+	
+ConditionalBranching:
+	IF expr=ExpressionStatement block=Block
+	(ELSE (elseCondition=ConditionalBranching | elseBlock=Block))?;
+
+CaseStmt:
+	CASE "{" BlankLine?
+	( WHEN expressions+=ExpressionStatement block+=Block BlankLine? )+
+    OTHERWISE Block BlankLine?
+  "}";
+
+MatchStmt:
+	MATCH "{" BlankLine?
+    ( WHEN BlankLine? whenExpression+=ExpressionStatement BlankLine? 
+      THEN BlankLine? thenExpression+=ExpressionStatement BlankLine? )+
+    OTHERWISE  BlankLine? otherwiseExpression=ExpressionStatement BlankLine?
+  "}";
+

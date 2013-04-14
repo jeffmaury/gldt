@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.6"?>
+
+<target includeMode="feature" name="e35" sequenceNumber="1">
+<locations>
+<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.jdt.feature.group" version="3.5.2.r352_v20100108-7r88FEwFI0WTuoBl0iaG0tyhfZH6"/>
+<unit id="org.eclipse.equinox.executable.feature.group"  version="3.3.201.R35x_v20091211-7M-FngFELSU3Pqlv3JdZn"/>
+<unit id="org.eclipse.rcp.feature.group" version="3.5.2.R35x_v20100119-9SA0FxwFnoCU5XxWItFdXXb27BA6"/>
+<repository location="http://download.eclipse.org/releases/galileo"/>
+</location>
+<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.junit4" version="4.8.1.v20100525"/>
+<<repository location="http://download.eclipse.org/releases/helios"/>
+</location>
+<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.xtext.sdk.feature.group" version="2.4.0.v201303201134"/>
+<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases"/>
+</location>
+<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.emf.sdk.feature.group" version="2.8.0.v20120608-0554"/>
+<repository location="http://download.eclipse.org/modeling/emf/emf/updates/2.8"/>
+</location>
+<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.swtbot.eclipse.feature.group" version="2.0.4.20110304_0338-e5aff47-dev-e35"/>
+<repository location="http://download.eclipse.org/technology/swtbot/galileo/dev-build/update-site"/>
+</location>
+</locations>
+</target>

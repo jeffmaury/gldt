@@ -1,0 +1,34 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Golo Development Toolkit Core
+Bundle-Vendor: golo-lang.org
+Bundle-Version: 0.0.1.qualifier
+Bundle-SymbolicName: org.gololang.gldt.core; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.xtext;visibility:=reexport,
+ org.eclipse.xtext.xbase;resolution:=optional;visibility:=reexport,
+ org.eclipse.xtext.generator;resolution:=optional,
+ org.apache.commons.logging;bundle-version="1.0.4";resolution:=optional,
+ org.eclipse.emf.codegen.ecore;resolution:=optional,
+ org.eclipse.emf.mwe.utils;resolution:=optional,
+ org.eclipse.emf.mwe2.launch;resolution:=optional,
+ org.eclipse.xtext.util,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.common,
+ org.antlr.runtime,
+ org.eclipse.xtext.common.types
+Import-Package: org.apache.log4j,
+ org.eclipse.xtext.xbase.lib
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: org.gololang.gldt.core,
+ org.gololang.gldt.core.services,
+ org.gololang.gldt.core.golo,
+ org.gololang.gldt.core.golo.impl,
+ org.gololang.gldt.core.golo.util,
+ org.gololang.gldt.core.serializer,
+ org.gololang.gldt.core.parser.antlr,
+ org.gololang.gldt.core.parser.antlr.internal,
+ org.gololang.gldt.core.validation,
+ org.gololang.gldt.core.scoping,
+ org.gololang.gldt.core.generator,
+ org.gololang.gldt.core.formatting
