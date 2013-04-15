@@ -5,4 +5,5 @@ jdk:
   - oraclejdk7
 script: "mvn install"
 notifications:
-  email: true
+  email:
+  - jeffmaury@jeffmaury.com
