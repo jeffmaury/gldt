@@ -9,7 +9,7 @@ CompilationUnit:
 	module=ModuleDeclaration
 	BlankLines
 	(imports+=ImportDeclaration BlankLines)*
-	declaration=TopLevelDeclaration BlankLines;
+	(declarations+=TopLevelDeclaration BlankLines)*;
 
 terminal WS :
 	' ' |
