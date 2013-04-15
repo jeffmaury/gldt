@@ -3,9 +3,12 @@
  */
 package org.gololang.gldt.core.ui.contentassist;
 
+import javax.inject.Inject;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.RuleCall;
+import org.eclipse.xtext.common.ui.contentassist.TerminalsProposalProvider;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
 import org.gololang.gldt.core.ui.contentassist.AbstractGoloProposalProvider;
@@ -14,6 +17,15 @@ import org.gololang.gldt.core.ui.contentassist.AbstractGoloProposalProvider;
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
  */
 public class GoloProposalProvider extends AbstractGoloProposalProvider {
+
+	@Inject
+	TerminalsProposalProvider delegate;
+	
+	@Override
+	public void complete_IDENTIFIER(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		delegate.complete_ID(model, ruleCall, context, acceptor);
+	}
 
 	@Override
 	public void complete_MODULE(EObject model, RuleCall ruleCall,
