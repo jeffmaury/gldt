@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Golo Development Toolkit Core UI
-Bundle-Vendor: golo-lang.org
+Bundle-Vendor: Jeff MAURY
 Bundle-Version: 0.0.1.qualifier
 Bundle-SymbolicName: org.gololang.gldt.core.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
