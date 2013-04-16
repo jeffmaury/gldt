@@ -102,9 +102,9 @@ terminal TRUE: "true";
 
 terminal FALSE: "false";
 
-CLASSREF: IDENTIFIER ("." IDENTIFIER)* (".class" | ".module");
+terminal CLASSREF: IDENTIFIER ("." IDENTIFIER)* (".class" | ".module");
 
-FUNREF: "^" (IDENTIFIER ("." IDENTIFIER)* "::")? IDENTIFIER;
+terminal FUNREF: "^" (IDENTIFIER ("." IDENTIFIER)* "::")? IDENTIFIER;
 
 terminal fragment LETTER: "A".."Z" | "a".."z" | "_" | "$";
 
