@@ -6,6 +6,8 @@ package org.gololang.gldt.core.ui.contentassist;
 import javax.inject.Inject;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.AbstractElement;
+import org.eclipse.xtext.CompoundElement;
 import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.common.ui.contentassist.TerminalsProposalProvider;
@@ -80,5 +82,165 @@ public class GoloProposalProvider extends AbstractGoloProposalProvider {
 			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		completeKeyword((Keyword) ruleCall.getRule().getAlternatives(), context, acceptor);
 	}
+	
+	@Override
+	public void complete_RETURN(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeKeyword((Keyword) ruleCall.getRule().getAlternatives(), context, acceptor);
+	}
+	
+	@Override
+	public void complete_ELSE(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeKeyword((Keyword) ruleCall.getRule().getAlternatives(), context, acceptor);
+	}
+	
+	@Override
+	public void complete_WHILE(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeKeyword((Keyword) ruleCall.getRule().getAlternatives(), context, acceptor);
+	}
+	
+	@Override
+	public void complete_FOR(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeKeyword((Keyword) ruleCall.getRule().getAlternatives(), context, acceptor);
+	}
+	
+	@Override
+	public void complete_FOREACH(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeKeyword((Keyword) ruleCall.getRule().getAlternatives(), context, acceptor);
+	}
+	
+	@Override
+	public void complete_THROW(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeKeyword((Keyword) ruleCall.getRule().getAlternatives(), context, acceptor);
+	}
+	
+	@Override
+	public void complete_TRY(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeKeyword((Keyword) ruleCall.getRule().getAlternatives(), context, acceptor);
+	}
+	
+	@Override
+	public void complete_CATCH(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeKeyword((Keyword) ruleCall.getRule().getAlternatives(), context, acceptor);
+	}
+	
+	@Override
+	public void complete_FINALLY(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeKeyword((Keyword) ruleCall.getRule().getAlternatives(), context, acceptor);
+	}
+	
+	@Override
+	public void complete_CASE(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeKeyword((Keyword) ruleCall.getRule().getAlternatives(), context, acceptor);
+	}
+	
+	@Override
+	public void complete_WHEN(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeKeyword((Keyword) ruleCall.getRule().getAlternatives(), context, acceptor);
+	}
+	
+	@Override
+	public void complete_THEN(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeKeyword((Keyword) ruleCall.getRule().getAlternatives(), context, acceptor);
+	}
+	
+	@Override
+	public void complete_AUGMENT(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeKeyword((Keyword) ruleCall.getRule().getAlternatives(), context, acceptor);
+	}
+	
+	@Override
+	public void complete_BREAK(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeKeyword((Keyword) ruleCall.getRule().getAlternatives(), context, acceptor);
+	}
+	
+	@Override
+	public void complete_CONTINUE(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeKeyword((Keyword) ruleCall.getRule().getAlternatives(), context, acceptor);
+	}
+	
+	@Override
+	public void complete_ASSOCIATIVE_OPERATOR(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		for(AbstractElement e : ((CompoundElement)ruleCall.getRule().getAlternatives()).getElements()) {
+			completeKeyword((Keyword) e, context, acceptor);
+		}
+	}
+	
+	@Override
+	public void complete_COMMUTATIVE_OPERATOR(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		for(AbstractElement e : ((CompoundElement)ruleCall.getRule().getAlternatives()).getElements()) {
+			completeKeyword((Keyword) e, context, acceptor);
+		}
+	}
+	
+	@Override
+	public void complete_UNARY_OPERATOR(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeKeyword((Keyword) ruleCall.getRule().getAlternatives(), context, acceptor);
+	}
+	
+	@Override
+	public void complete_VAR(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeKeyword((Keyword) ruleCall.getRule().getAlternatives(), context, acceptor);
+	}
+	
+	@Override
+	public void complete_NUMBER(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		delegate.complete_INT(model, ruleCall, context, acceptor);
+	}
+	
+	@Override
+	public void complete_LONG_NUMBER(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		//TODO
+		delegate.complete_INT(model, ruleCall, context, acceptor);
+	}
+	
+	@Override
+	public void complete_STRING(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		delegate.complete_STRING(model, ruleCall, context, acceptor);
+	}
+	
+	@Override
+	public void complete_CHAR(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		//TODO
+	}
 
+	@Override
+	public void complete_NULL(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeKeyword((Keyword) ruleCall.getRule().getAlternatives(), context, acceptor);
+	}
+	
+	@Override
+	public void complete_TRUE(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeKeyword((Keyword) ruleCall.getRule().getAlternatives(), context, acceptor);
+	}
+	
+	@Override
+	public void complete_FALSE(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		completeKeyword((Keyword) ruleCall.getRule().getAlternatives(), context, acceptor);
+	}
 }
