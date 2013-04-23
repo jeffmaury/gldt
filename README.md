@@ -14,3 +14,5 @@ Copy these two JARs in your Eclipse dropins folder and restart Eclipse.
 <b>IRC<b>
 
 Log into the #gldt IRC channel on irc.freenode.net or with <a href="http://webchat.freenode.net">web irc client</a> 
+
+![Build Status](https://travis-ci.org/jeffmaury/gldt.png?branch=master) https://travis-ci.org/jeffmaury/gldt
