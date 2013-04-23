@@ -9,7 +9,7 @@ CompilationUnit:
 	module=ModuleDeclaration
 	BlankLines
 	(imports+=ImportDeclaration BlankLines)*
-	(declarations+=TopLevelDeclaration BlankLines)*;
+	(declarations+=TopLevelDeclaration BlankLines)*/*ExpressionStatement*/;
 
 terminal WS :
 	' ' |
@@ -102,9 +102,9 @@ terminal TRUE: "true";
 
 terminal FALSE: "false";
 
-terminal CLASSREF: IDENTIFIER ("." IDENTIFIER)* (".class" | ".module");
+CLASSREF: name=QualifiedName '.' ( ('class' | MODULE));
 
-terminal FUNREF: "^" (IDENTIFIER ("." IDENTIFIER)* "::")? IDENTIFIER;
+FUNREF: "^" (prefix=QualifiedName "::")? name=IDENTIFIER;
 
 terminal fragment LETTER: "A".."Z" | "a".."z" | "_" | "$";
 
@@ -114,6 +114,13 @@ terminal IDENTIFIER: LETTER (ID_REST)*;
 
 
 terminal COMMENT: "#" (!("\n" | "\r" | "\r\n"))* ("\n" | "\r" | "\r\n");
+
+TerminalExpression:
+	literal=Literal |
+	functionInvocation=FunctionInvocation |
+	reference=Reference |
+	match=MatchStmt |
+	function=FunctionStmt;
 
 BlankLine:
 	NEWLINE | COMMENT;
@@ -213,12 +220,6 @@ TryCatchFinally:
 ExpressionStatement:
 	CommutativeExpression;
 
-TerminalExpression:
-	functionInvocation=FunctionInvocation |
-	reference=Reference |
-	match=MatchStmt |
-	literal=Literal |
-	function=FunctionStmt;
 	
 UnaryExpression:
 	token=UNARY_OPERATOR commutativeExpression=CommutativeExpression;
@@ -239,7 +240,7 @@ AssociativeExpression:
 	BlankLine?;
 
 MethodInvocation:
-	token=IDENTIFIER "(" BlankLine? Expressions? ")";
+	token=IDENTIFIER =>"(" BlankLine? Expressions? ")";
 
 Block:
 	{Block}
@@ -281,7 +282,7 @@ Expressions:
 	expressions+=ExpressionStatement ("," BlankLine? expressions+=ExpressionStatement)*;
 	
 FunctionInvocation:
-	name=QualifiedName =>"(" BlankLine? Expressions? ")";
+	name=QualifiedName "(" BlankLine? Expressions? ")";
 	
 ConditionalBranching:
 	IF expr=ExpressionStatement block=Block
