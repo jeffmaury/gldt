@@ -72,7 +72,7 @@ terminal ASSOCIATIVE_OPERATOR: ("*" | "/" | "%" |
                            "oftype" ); 
 
 terminal COMMUTATIVE_OPERATOR: ("+" | "-" |
-                           "and" | "or");
+                           "and" | "or" | "orIfNull");
 
 terminal UNARY_OPERATOR: "not";
 
@@ -102,6 +102,8 @@ terminal TRUE: "true";
 
 terminal FALSE: "false";
 
+terminal INVOCATION: ':' | '?:';
+
 CLASSREF: name=QualifiedName '.' ( ('class' | MODULE));
 
 FUNREF: "^" (prefix=QualifiedName "::")? name=IDENTIFIER;
@@ -113,7 +115,7 @@ terminal fragment ID_REST: LETTER | "0".."9";
 terminal IDENTIFIER: LETTER (ID_REST)*;
 
 
-terminal COMMENT: "#" (!("\n" | "\r" | "\r\n"))* ("\n" | "\r" | "\r\n");
+terminal COMMENT: "#" (!("\n" | "\r" | "\r\n"))* ("\n" | "\r" | "\r\n")?;
 
 TerminalExpression:
 	literal=Literal |
@@ -235,7 +237,7 @@ AssociativeExpression:
 	 unaryExpression=UnaryExpression)
 	BlankLine?
 	((token+=ASSOCIATIVE_OPERATOR BlankLine? associativeExpression+=AssociativeExpression) |
-	 (BlankLine? token+=":" BlankLine? methodInvocation+=MethodInvocation)
+	 (BlankLine? INVOCATION BlankLine? methodInvocation+=MethodInvocation)
 	)*
 	BlankLine?;
 
