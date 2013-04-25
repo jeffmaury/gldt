@@ -6,13 +6,18 @@ package org.gololang.gldt.core.ui.contentassist;
 import javax.inject.Inject;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.xtext.AbstractElement;
+import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.CompoundElement;
+import org.eclipse.xtext.GrammarUtil;
 import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.common.ui.contentassist.TerminalsProposalProvider;
+import org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
+import org.eclipse.xtext.util.Strings;
 import org.gololang.gldt.core.ui.contentassist.AbstractGoloProposalProvider;
 
 /**
@@ -22,7 +27,61 @@ public class GoloProposalProvider extends AbstractGoloProposalProvider {
 
 	@Inject
 	TerminalsProposalProvider delegate;
+
+	private String getAssignedFeature(RuleCall call) {
+		Assignment ass = GrammarUtil.containingAssignment(call);
+		if (ass != null) {
+			String result = ass.getFeature();
+			if (result.equals(result.toLowerCase()))
+				result = Strings.toFirstUpper(result);
+			return result;
+		}
+		return null;
+	}
+
+	private void createNumericProposal(ContentAssistContext context, ICompletionProposalAcceptor acceptor,
+			RuleCall ruleCall, String feature,	Object value) {
+		String proposalText = getValueConverter().toString(value, ruleCall.getRule().getName());
+		String displayText = proposalText + " - " + ruleCall.getRule().getName();
+		if (feature != null)
+			displayText = proposalText + " - " + feature;
+		ICompletionProposal proposal = createCompletionProposal(proposalText, displayText, null, context);
+		if (proposal instanceof ConfigurableCompletionProposal) {
+			ConfigurableCompletionProposal configurable = (ConfigurableCompletionProposal) proposal;
+			configurable.setSelectionStart(configurable.getReplacementOffset());
+			configurable.setSelectionLength(proposalText.length());
+			configurable.setAutoInsertable(false);
+			configurable.setSimpleLinkedMode(context.getViewer(), '\t', ' ');
+		}
+		acceptor.accept(proposal);
+	}
 	
+	public void complete_INT(EObject model, RuleCall ruleCall, ContentAssistContext context,
+			ICompletionProposalAcceptor acceptor) {
+     	String feature = getAssignedFeature(ruleCall);
+		createNumericProposal(context, acceptor, ruleCall, feature, 1);
+	}
+
+	public void complete_LONG(EObject model, RuleCall ruleCall, ContentAssistContext context,
+			ICompletionProposalAcceptor acceptor) {
+     	String feature = getAssignedFeature(ruleCall);
+		createNumericProposal(context, acceptor, ruleCall, feature, 1L);
+	}
+
+	@Override
+	public void complete_FLOATING_NUMBER(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		String feature = getAssignedFeature(ruleCall);
+		createNumericProposal(context, acceptor, ruleCall, feature, 1.0d);
+	}
+
+	@Override
+	public void complete_FLOAT(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		String feature = getAssignedFeature(ruleCall);
+		createNumericProposal(context, acceptor, ruleCall, feature, 1.0f);
+	}
+
 	@Override
 	public void complete_IDENTIFIER(EObject model, RuleCall ruleCall,
 			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
@@ -204,14 +263,13 @@ public class GoloProposalProvider extends AbstractGoloProposalProvider {
 	@Override
 	public void complete_NUMBER(EObject model, RuleCall ruleCall,
 			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		delegate.complete_INT(model, ruleCall, context, acceptor);
+		complete_INT(model, ruleCall, context, acceptor);
 	}
 	
 	@Override
 	public void complete_LONG_NUMBER(EObject model, RuleCall ruleCall,
 			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		//TODO
-		delegate.complete_INT(model, ruleCall, context, acceptor);
+		complete_LONG(model, ruleCall, context, acceptor);
 	}
 	
 	@Override
@@ -242,5 +300,13 @@ public class GoloProposalProvider extends AbstractGoloProposalProvider {
 	public void complete_FALSE(EObject model, RuleCall ruleCall,
 			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		completeKeyword((Keyword) ruleCall.getRule().getAlternatives(), context, acceptor);
+	}
+
+	@Override
+	public void complete_INVOCATION(EObject model, RuleCall ruleCall,
+			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
+		for(AbstractElement e : ((CompoundElement)ruleCall.getRule().getAlternatives()).getElements()) {
+			completeKeyword((Keyword) e, context, acceptor);
+		}
 	}
 }

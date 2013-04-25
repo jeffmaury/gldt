@@ -3,9 +3,17 @@
  */
 package org.gololang.gldt.core;
 
+import org.eclipse.xtext.conversion.IValueConverterService;
+import org.gololang.gldt.core.services.GoloTerminalConverter;
+
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 public class GoloRuntimeModule extends org.gololang.gldt.core.AbstractGoloRuntimeModule {
+
+	@Override
+	public Class<? extends IValueConverterService> bindIValueConverterService() {
+		return GoloTerminalConverter.class;
+	}
 
 }

@@ -80,13 +80,13 @@ terminal VAR: "var";
 
 terminal LET: "let";
 
-terminal NUMBER: "-"? "0".."9" ("0".."9")*;
+terminal NUMBER returns ecore::EInt: "-"? "0".."9" ("0".."9")*;
 
-terminal LONG_NUMBER: NUMBER "_L";
+terminal LONG_NUMBER returns ecore::ELong: NUMBER "_L";
 
-terminal FLOATING_NUMBER: ("-")? ("0".."9")+ ("." ("0".."9")+)? ("e" ("0".."9")+)?;
+terminal FLOATING_NUMBER returns ecore::EDouble: ("-")? ("0".."9")+ ("." ("0".."9")+)? ("e" ("0".."9")+)?;
 
-terminal FLOAT: FLOATING_NUMBER "_F";
+terminal FLOAT returns ecore::EFloat: FLOATING_NUMBER "_F";
 
 terminal STRING: "\"" (
     !("\"" | "\\" | "\n" | "\r")
