@@ -61,10 +61,22 @@ public class GoloTerminalConverter extends DefaultTerminalConverters {
 	
 	private class FloatConverter extends AbstractLexerBasedConverter<Float> {
 
+		private static final String FLOAT_SUFFIX = "_F";
+
 		public Float toValue(String string, INode node)
 				throws ValueConverterException {
+			if (string.endsWith(FLOAT_SUFFIX)) {
+				string = string.substring(0, string.length() - FLOAT_SUFFIX.length());
+			}
+
 			return Float.parseFloat(string);
 		}
+		
+		@Override
+		protected String toEscapedString(Float value) {
+			return value.toString() + FLOAT_SUFFIX;
+		}
+
 	}
 	
 	private final IValueConverter<Float> FLOAT = new FloatConverter();
