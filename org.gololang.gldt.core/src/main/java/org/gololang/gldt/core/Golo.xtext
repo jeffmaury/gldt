@@ -112,7 +112,7 @@ terminal fragment LETTER: "A".."Z" | "a".."z" | "_" | "$";
 
 terminal fragment ID_REST: LETTER | "0".."9";
 
-terminal IDENTIFIER: LETTER (ID_REST)*;
+terminal IDENTIFIER: '`'? LETTER (ID_REST)*;
 
 
 terminal COMMENT: "#" (!("\n" | "\r" | "\r\n"))* ("\n" | "\r" | "\r\n")?;
