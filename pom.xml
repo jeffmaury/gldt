@@ -28,12 +28,27 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Golo Language Development Toolkit</name>
-  <url></url>
+  <description>Eclipse based Golo languade developement toolkit</description>
+  <url>http://github.com/jeffmaury/gldt</url>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
   <scm>
-    <connection></connection>
-    <developerConnection></developerConnection>
-    <url></url>
+    <connection>scm:git:git@github.com:jeffmaury/gldt.git</connection>
+    <developerConnection>scm:git:git@github.com:jeffmaury/gldt.git</developerConnection>
+    <url>scm:git:git@github.com:jeffmaury/gldt.git</url>
   </scm>
+  <developers>
+    <developer>
+      <id>jeffmaury</id>
+      <name>Jeff MAURY</name>
+      <email>jeffmaury@jeffmaury.com</email>
+    </developer>
+  </developers>
   <properties>
     <tycho-version>0.17.0</tycho-version>
   </properties>
