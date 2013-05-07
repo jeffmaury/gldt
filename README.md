@@ -7,9 +7,21 @@ Golo Language Development Tools (Eclipse)
 
 Once you've cloned the repository, run mvn package.
 
-This should produce two JAR, <i>org.gololang.gldt.core</i> and <i>org.gololang.gldt.core.ui</i> in their respective target directories.
+This should produce an update site under org.gololang.gldt.site/target/repository.
 
-Copy these two JARs in your Eclipse dropins folder and restart Eclipse.
+Under Eclipse, add this folder as a local software site and give it a name (GLDT for example).
+
+Then, click on Help -> Install new software, and select the software site you just created.
+
+After a short time, you should see two items, GLDT and Xtext.
+
+If Xtext is not installed on your Eclipse, select the two items and proceed to the installation.
+
+If Xtext is already installed on your Eclipse, select only the GLDT item and proceed to the installation.
+
+Restart Eclipse.
+
+GLDT should be installed and the GDLT editor should be run on each .golo file.
 
 <b>IRC<b>
 

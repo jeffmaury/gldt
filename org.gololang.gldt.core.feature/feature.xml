@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.gololang.gldt.core.feature"
+      label="Golo Development Toolkit Core"
+      version="0.0.1.qualifier"
+      provider-name="Jeff MAURY">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <url>
+      <discovery label="Xtext" url="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases"/>
+   </url>
+
+   <requires>
+      <import feature="org.eclipse.xtext.runtime" version="2.4.0.v201303201134" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="org.gololang.gldt.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.gololang.gldt.core.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
