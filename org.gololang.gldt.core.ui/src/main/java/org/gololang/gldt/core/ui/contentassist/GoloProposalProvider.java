@@ -217,7 +217,9 @@ public class GoloProposalProvider extends AbstractGoloProposalProvider {
 	@Override
 	public void complete_AUGMENT(EObject model, RuleCall ruleCall,
 			ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		completeKeyword((Keyword) ruleCall.getRule().getAlternatives(), context, acceptor);
+		for(AbstractElement e : ((CompoundElement)ruleCall.getRule().getAlternatives()).getElements()) {
+			completeKeyword((Keyword) e, context, acceptor);
+		}
 	}
 	
 	@Override
