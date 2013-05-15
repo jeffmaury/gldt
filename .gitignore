@@ -9,3 +9,5 @@ target
 .classpath
 .externalToolBuilders
 plugin.xml_gen
+rebel.xml
+
