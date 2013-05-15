@@ -131,10 +131,10 @@ BlankLines:
 	BlankLine*;
 
 QualifiedName:
-	root=IDENTIFIER ("." next+=IDENTIFIER)*;
+	elements+=IDENTIFIER ("." elements+=IDENTIFIER)*;
 
 Arguments:
-	root=IDENTIFIER ("," BlankLine? next+= IDENTIFIER)*;
+	parms+=IDENTIFIER ("," BlankLine? parms+= IDENTIFIER)*;
 
 StringLiteral:
 	value=STRING;
