@@ -6,7 +6,7 @@ import org.eclipse.xtext.ui.generator.*
 
 var grammarURI = "src/main/java/org/gololang/gldt/core/Golo.xtext"
 var fileExtensions = "golo"
-var projectName = "org.gololang.gldt.core"
+var projectName = "org.golo-lang.gldt.core"
 var runtimeProject = "../${projectName}"
 var generateXtendStub = false
 

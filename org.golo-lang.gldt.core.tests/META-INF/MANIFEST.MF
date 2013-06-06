@@ -3,10 +3,10 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Golo Development Toolkit Core Tests
 Bundle-Vendor: Jeff MAURY
 Bundle-Version: 0.0.1.qualifier
-Bundle-SymbolicName: org.gololang.gldt.core.tests; singleton:=true
+Bundle-SymbolicName: org.golo-lang.gldt.core.tests; singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.gololang.gldt.core,
- org.gololang.gldt.core.ui,
+Require-Bundle: org.golo-lang.gldt.core,
+ org.golo-lang.gldt.core.ui,
  org.eclipse.core.runtime,
  org.eclipse.xtext.junit4,
  org.eclipse.ui.workbench;resolution:=optional

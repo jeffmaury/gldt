@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.gololang.gldt.core.feature"
+      id="org.golo-lang.gldt.core.feature"
       label="Golo Development Toolkit Core"
       version="0.0.1.qualifier"
       provider-name="Jeff MAURY">
@@ -26,14 +26,14 @@
    </requires>
 
    <plugin
-         id="org.gololang.gldt.core"
+         id="org.golo-lang.gldt.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.gololang.gldt.core.ui"
+         id="org.golo-lang.gldt.core.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
